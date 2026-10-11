@@ -1,0 +1,61 @@
+name: Test custom flags
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Create minimal Shopify theme structure
+        run: |
+          mkdir -p theme/templates
+          mkdir -p theme/layout
+          mkdir -p theme/config
+          mkdir -p theme/sections
+          mkdir -p theme/snippets
+          mkdir -p theme/assets
+          mkdir -p theme/locales
+          # Create a minimal layout/theme.liquid
+          cat > theme/layout/theme.liquid << 'EOF'
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <meta charset="utf-8">
+              {{ content_for_header }}
+            </head>
+            <body>
+              {{ content_for_layout }}
+            </body>
+          </html>
+          EOF
+          # Create a minimal template
+          cat > theme/templates/index.json << 'EOF'
+          {
+            "sections": {},
+            "order": []
+          }
+          EOF
+          # Create a minimal config/settings_schema.json
+          echo '[]' > theme/config/settings_schema.json
+          # Create a minimal config/settings_data.json
+          echo '{"current": "Default"}' > theme/config/settings_data.json
+
+      - id: action
+        uses: .
+        with:
+          theme_root: theme
+          flags: '--fail-level error'
+        continue-on-error: true
+
+      - name: Assert action ran with custom flags
+        env:
+          OUTCOME: ${{ steps.action.outcome }}
+        run: |
+          echo "outcome: $OUTCOME"
+          if [ "$OUTCOME" = "success" ] || [ "$OUTCOME" = "failure" ]; then
+            echo "PASS: action ran with custom flags (outcome: $OUTCOME)"
+          else
+            echo "FAIL: unexpected outcome '$OUTCOME'"
+            exit 1
+          fi

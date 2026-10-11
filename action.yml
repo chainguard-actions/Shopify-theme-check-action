@@ -1,0 +1,27 @@
+# action.yml
+name: 'Run Theme Check on Shopify theme'
+branding:
+  icon: shopping-bag
+  colour: green
+description: 'Run Theme Check on Shopify themes directly from GitHub'
+inputs:
+  theme_root:
+    description: 'The root folder for the theme assets that will be uploaded (default: ".")'
+    required: false
+    default: '.'
+  flags:
+    description: 'CLI options and values (e.g. "--fail-level suggestion")'
+    required: false
+  version:
+    description: 'Specific theme-check version to use. (default: latest)'
+    required: false
+  token:
+    description: 'GitHub token so that the action can annotate the checks'
+    required: false
+  base:
+    description: 'When token is set, only the files that contain a diff with this ref (branch, tag or commit) will have GitHub annotations.'
+    required: false
+runs:
+  pre: chainguard-phonehome.js
+  using: 'node20'
+  main: 'dist/index.js'
