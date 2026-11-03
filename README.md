@@ -6,9 +6,9 @@ Hardened by [Chainguard](https://www.chainguard.dev) from the upstream action at
 
 ## Versions
 
-| Version | Tag | Upstream commit |
-|---------|-----|-----------------|
-| v2.2.0 | [`v2.2.0`](https://github.com/chainguard-actions/Shopify-theme-check-action/tree/v2.2.0) | [`58fd69a`](https://github.com/Shopify/theme-check-action/commit/58fd69afdfc30110f997ba9e212b302671e00d3b) |
+| Version | Tag | Upstream commit | Hardening report |
+|---------|-----|-----------------|------------------|
+| v2.2.0 | [`v2.2.0`](https://github.com/chainguard-actions/Shopify-theme-check-action/tree/v2.2.0) | [`58fd69a`](https://github.com/Shopify/theme-check-action/commit/58fd69afdfc30110f997ba9e212b302671e00d3b) | [`HARDENING.md`](https://github.com/chainguard-actions/Shopify-theme-check-action/blob/v2.2.0/HARDENING.md) |
 
 ## Privacy
 
